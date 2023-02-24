@@ -1,17 +1,16 @@
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWidgets import QPushButton
-from PyQt5.QtGui import QPainter, QColor, QPolygon
+from PyQt5.QtGui import QPainter, QColor
 import sys
 import random
+from UI import Ui_MainWindow
 
 SCREEN_SIZE = [680, 480]
 
 
-class Example(QMainWindow):
+class Example(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.flag = False
         self.pushButton.clicked.connect(self.draw)
         self.coords = []
@@ -19,7 +18,7 @@ class Example(QMainWindow):
     def draw(self):
         self.figure = 'circle'
         self.size = random.randint(10, 100)
-        self.color = (255, 255, 0)  # 'yellow'
+        self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))  # 'yellow'
         self.flag = True
         self.update()
 
@@ -33,6 +32,7 @@ class Example(QMainWindow):
             if self.figure == 'circle':
                 qp.drawEllipse(self.x, self.y, self.size, self.size)
             qp.end()
+
 
 
 if __name__ == '__main__':
